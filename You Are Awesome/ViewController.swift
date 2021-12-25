@@ -22,7 +22,10 @@ class ViewController: UIViewController {
 
     @IBAction func messageButtonPressed(_ sender: UIButton) {
         
-        //        let imageName = "image" + String(imageNumber)
+        let messages = ["Y","Yo","You","You A","You Ar", "You Are","You Are C","You Are Co","You Are Coo","You Are Cool"]
+        
+        messageLabel.text = messages[imageNumber]
+  
         let imageName = "image\(imageNumber)"
         imageView.image =  UIImage(named: imageName)
         
