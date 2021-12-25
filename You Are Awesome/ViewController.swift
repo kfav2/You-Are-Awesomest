@@ -19,9 +19,22 @@ class ViewController: UIViewController {
 
 
     @IBAction func messageButtonPressed(_ sender: UIButton) {
-        messageLabel.text = "You Are Awesome!"
-        messageLabel.textColor = UIColor.red
-        imageView.image =  UIImage(named: "image0")
+      
+        let awesomeMessage = "You Are Awesome!"
+        let awesomerMessage = "You Are Awesome-r"
+        let awesomestMessage = "You Are The Awesomest"
+        
+        if messageLabel.text == awesomeMessage{
+            messageLabel.text = awesomerMessage
+            imageView.image =  UIImage(named: "image1")
+            
+        } else if messageLabel.text == awesomerMessage{ messageLabel.text = awesomestMessage
+            imageView.image =  UIImage(named: "image0")
+            
+        } else{ messageLabel.text = awesomeMessage
+            imageView.image =  UIImage(named: "image2")
+            
+        }
     }
 }
 
