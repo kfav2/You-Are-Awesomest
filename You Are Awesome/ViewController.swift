@@ -12,40 +12,56 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
     let imageCount = 9
+    var messageNumber = -1
+    var imageNumber = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        messageLabel.text = ""
         
     }
 
 
     @IBAction func messageButtonPressed(_ sender: UIButton) {
+        let messages = ["Y",
+                        "Yo",
+                        "You",
+                        "You A",
+                        "You Ar",
+                        "You Are",
+                        "You Are C",
+                        "You Are Co",
+                        "You Are Coo",
+                        "You Are Cool"]
         
-        let messages = ["Y","Yo","You","You A","You Ar", "You Are","You Are C","You Are Co","You Are Coo","You Are Cool"]
-        messageLabel.text = messages[Int.random(in: 0...messages.count-1)]
+//        How I did it
+//        var newMessage: String
+//        repeat {
+//            let messageNumber = Int.random(in: 0...messages.count-1)
+//            newMessage = messages[messageNumber]
+//        } while newMessage == messageLabel.text
+//        messageLabel.text = newMessage
+//
+//        var newImage: UIImage
+//
+//        repeat {
+//            let imageNumber = Int.random(in: 0...imageCount-1)
+//            newImage = UIImage(named: "image\(imageNumber)")!
+//        } while newImage == imageView.image
+//        imageView.image = newImage
+//    }
+//        His way
+        var newMessageNumber: Int
+        repeat {
+        newMessageNumber = .random(in: 0...messages.count-1)
+        } while messageNumber == newMessageNumber
+        messageNumber = newMessageNumber
+        messageLabel.text = messages[messageNumber]
         
-        imageView.image =  UIImage(named: "image\(Int.random(in: 0...imageCount))")
-        
-        }
-        
-        
-        
-        //
-        //        let awesomeMessage = "You Are Awesome!"
-        //        let awesomerMessage = "You Are Awesome-r"
-        //        let awesomestMessage = "You Are The Awesomest"
-        //
-        //        if messageLabel.text == awesomeMessage{
-        //            messageLabel.text = awesomerMessage
-        //            imageView.image =  UIImage(named: "image1")
-        //
-        //        } else if messageLabel.text == awesomerMessage{ messageLabel.text = awesomestMessage
-        //            imageView.image =  UIImage(named: "image0")
-        //
-        //        } else{ messageLabel.text = awesomeMessage
-        //            imageView.image =  UIImage(named: "image2")
-        //
-        //        }
-    }
-
+        var newImageNumber: Int
+        repeat {
+        newImageNumber = .random(in: 0...imageCount-1)
+        } while imageNumber == newImageNumber
+        imageNumber = newImageNumber
+        imageView.image = UIImage(named: "image\(imageNumber)")
+}
+}
