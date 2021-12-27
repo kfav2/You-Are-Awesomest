@@ -11,6 +11,7 @@ import AVFoundation
 class ViewController: UIViewController {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var soundToggle: UISwitch!
     
     let imageCount = 9
     let soundCount = 6
@@ -44,6 +45,8 @@ class ViewController: UIViewController {
     }
 
 
+ 
+    
     @IBAction func messageButtonPressed(_ sender: UIButton) {
         let messages = ["Y",
                         "Yo",
@@ -61,7 +64,14 @@ class ViewController: UIViewController {
         
         messageLabel.text = messages[messageNumber]
         imageView.image = UIImage(named: "image\(imageNumber)")
-        playSound(name: "sound\(soundNumber)")
-
+        if soundToggle.isOn { //if soundToggle is on
+            playSound(name: "sound\(soundNumber)") //play the sounds
+        }
+    }
+    
+    @IBAction func playSoundSwitch(_ sender: UISwitch) {
+        if !sender.isOn && audioPlayer != nil { //if inOn is not true audioPlay is not nil
+            audioPlayer.stop() //Stop playing
+        }
     }
 }
