@@ -13,13 +13,34 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
     let imageCount = 9
+    let soundCount = 6
     var messageNumber = -1
     var imageNumber = -1
     var audioPlayer: AVAudioPlayer!
+    var soundNumber = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    func playSound(name: String) {
+        if let sound = NSDataAsset(name: name) {
+            do{
+                try audioPlayer = AVAudioPlayer(data: sound.data)
+                audioPlayer.play()
+            } catch{
+                print("ERROR: \(error.localizedDescription) Did not initialize AV Player")
+            }
+        } else{
+            print("ERROR: Did not read sound")
+        }
+    }
+    func nonRepeatingRandom(originalNumber: Int, upperBounds: Int) -> Int{
+        var newNumber: Int
+        repeat {
+            newNumber = .random(in: 0...upperBounds)
+        } while newNumber == originalNumber
+        return newNumber
     }
 
 
@@ -34,47 +55,13 @@ class ViewController: UIViewController {
                         "You Are Co",
                         "You Are Coo",
                         "You Are Cool"]
+        messageNumber = nonRepeatingRandom(originalNumber: messageNumber, upperBounds: messages.count-1)
+        imageNumber = nonRepeatingRandom(originalNumber: imageNumber, upperBounds: imageCount-1)
+        soundNumber = nonRepeatingRandom(originalNumber: soundNumber, upperBounds: soundCount-1)
         
-//        How I did it
-//        var newMessage: String
-//        repeat {
-//            let messageNumber = Int.random(in: 0...messages.count-1)
-//            newMessage = messages[messageNumber]
-//        } while newMessage == messageLabel.text
-//        messageLabel.text = newMessage
-//
-//        var newImage: UIImage
-//
-//        repeat {
-//            let imageNumber = Int.random(in: 0...imageCount-1)
-//            newImage = UIImage(named: "image\(imageNumber)")!
-//        } while newImage == imageView.image
-//        imageView.image = newImage
-//    }
-//        His way
-        var newMessageNumber: Int
-        repeat {
-        newMessageNumber = .random(in: 0...messages.count-1)
-        } while messageNumber == newMessageNumber
-        messageNumber = newMessageNumber
         messageLabel.text = messages[messageNumber]
-        
-        var newImageNumber: Int
-        repeat {
-        newImageNumber = .random(in: 0...imageCount-1)
-        } while imageNumber == newImageNumber
-        imageNumber = newImageNumber
         imageView.image = UIImage(named: "image\(imageNumber)")
-        
-        if let sound = NSDataAsset(name: "sound0") {
-            do{
-                try audioPlayer = AVAudioPlayer(data: sound.data)
-                audioPlayer.play()
-            } catch{
-                print("ERROR: \(error.localizedDescription) Did not initialize AV Player")
-            }
-        } else{
-            print("ERROR: Did not read sound")
-        }
-}
+        playSound(name: "sound\(soundNumber)")
+
+    }
 }
